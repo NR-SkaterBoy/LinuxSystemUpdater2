@@ -1,22 +1,33 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "name": "linux-system-updater",
+  "version": "0.0.1",
+  "description": "Updater for linux systems",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-builder"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NR-SkaterBoy/LinuxSystemUpdater2"
+  },
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "linux",
+    "debian",
+    "update",
+    "system",
+    "system updater"
   ],
   "author": "GitHub",
-  "license": "CC0-1.0",
+  "license": "MIT",
   "devDependencies": {
     "electron": "^23.1.4"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.0-alpha1",
+    "bootstrap-icons": "^1.10.3",
+    "logger": "^0.0.1",
+    "update-electron-app": "^2.0.1",
+    "winston": "^3.8.2"
   }
 }

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Security-Policy"
+		content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
+	<link href="./sass/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="../node_modules\bootstrap\dist\css\bootstrap.min.css">
+	<link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+	<link rel="shortcut icon" href="./img/lsu_icon.ico" type="image/x-icon">
+	<title>Linux System Updater</title>
+</head>
+
+<body>
+	<section>
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-4 col-lg-3">
+					<div class="stati bg-asbestos d-flex align-items-center justify-content-start">
+						<i class="bi bi-cpu staticon me-3"></i>
+						<div class="text-end">
+							<b id="cpu-usage">20%</b>
+							<span id="statserver">CPU Usage</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-lg-3">
+					<div class="stati bg-asbestos d-flex align-items-center justify-content-start">
+						<i class="bi bi-memory staticon me-3"></i>
+						<div class="text-end">
+							<b id="ram-usage">60%</b>
+							<span id="statuser">RAM</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-lg-3">
+					<div class="stati bg-asbestos d-flex align-items-center justify-content-start">
+						<i class="bi bi-disc-fill staticon me-3"></i>
+						<div class="text-end">
+							<b id="channelnumber">45%</b>
+							<span id="statchannel">ROM</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 col-lg-3 flex-column">
+					<input type="button" value="Update your System">
+				</div>
+				<div class="col-md-4 col-lg-3">
+					<img src="./img/lsu_icon.png" alt="" srcset="">
+				</div>
+			</div>
+		</div>
+	</section>	
+	<script src="../renderer.js"></script>
+	<script>
+		const { ipcRenderer } = require("electron")
+
+		// Fogadjuk a CPU kihasználtságát a backend-től és jelenítsük meg a konzolon
+		ipcRenderer.on('cpu-usage', (event, cpuUsage) => {
+			console.log(`CPU Usage: ${cpuUsage}%`);
+			document.querySelector('#cpu-usage').innerText = `CPU Usage: ${cpuUsage}%`;
+		});
+
+		ipcRenderer.on('ram-usage', (event, ramUsage) => {
+			console.log(`Ram Usage: ${cpuUsage}%`);
+			document.querySelector('#ram-usage').innerText = `ram Usage: ${cpuUsage}%`;
+		});
+	</script>
+</body>
+
+</html>

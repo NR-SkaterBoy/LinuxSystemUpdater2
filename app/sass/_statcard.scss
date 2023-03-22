@@ -1,0 +1,54 @@
+.nezet {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stati {
+    background-color: #535353;
+    height: 6em;
+    padding: 1em;
+    margin: 1em 0;
+    border-radius: 10px;
+    border: 1px solid rgb(128, 128, 215);
+
+    i {
+        font-size: 3.5em;
+    }
+
+    div {
+        width: calc(100% - 3.5em);
+        display: block;
+        float: right;
+        text-align: right;
+
+        b {
+            font-size: 2.2em;
+            width: 100%;
+            padding-top: 0px;
+            margin-top: -0.2em;
+            margin-bottom: -0.2em;
+            display: block;
+        }
+
+        span {
+            font-size: 1em;
+            width: 100%;
+            color: #fff !important;
+            display: block;
+        }
+    }
+
+    &.left div {
+        float: left;
+        text-align: left;
+    }
+}
+
+.staticon:before {
+    color: #000;
+    background: rgb(128, 128, 215);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
