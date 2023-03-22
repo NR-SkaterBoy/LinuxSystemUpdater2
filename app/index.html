@@ -29,7 +29,7 @@
 					<div class="stati bg-asbestos d-flex align-items-center justify-content-start">
 						<i class="bi bi-memory staticon me-3"></i>
 						<div class="text-end">
-							<b id="ram-usage">60%</b>
+							<b id="memory-usage">60%</b>
 							<span id="statuser">RAM</span>
 						</div>
 					</div>
@@ -57,22 +57,8 @@
 				</div>
 			</div>
 		</div>
-	</section>	
+	</section>
 	<script src="../renderer.js"></script>
-	<script>
-		const { ipcRenderer } = require("electron")
-
-		// Fogadjuk a CPU kihasználtságát a backend-től és jelenítsük meg a konzolon
-		ipcRenderer.on('cpu-usage', (event, cpuUsage) => {
-			console.log(`CPU Usage: ${cpuUsage}%`);
-			document.querySelector('#cpu-usage').innerText = `CPU Usage: ${cpuUsage}%`;
-		});
-
-		ipcRenderer.on('ram-usage', (event, ramUsage) => {
-			console.log(`Ram Usage: ${cpuUsage}%`);
-			document.querySelector('#ram-usage').innerText = `ram Usage: ${cpuUsage}%`;
-		});
-	</script>
 </body>
 
 </html>

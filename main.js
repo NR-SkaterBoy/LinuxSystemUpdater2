@@ -1,5 +1,6 @@
 /* Import modules */
 const { app, BrowserWindow, ipcMain } = require('electron')
+const { autoUpdater } = require('electron-updater');
 const path = require('path')
 const log = require("./logger")
 const os = require("os")
@@ -26,12 +27,38 @@ function createWindow() {
     }, 1000);
 
     setInterval(() => {
-        const ramUsage = os.freemem()
-        log("info", ramUsage)
-        mainWindow.webContents.send("ram-usage", ramUsage)
+        const used = process.memoryUsage().heapUsed;
+        const total = os.totalmem();
+        const percentUsed = Math.round((used / total) * 100);
+        win.webContents.send('memory-usage', percentUsed);
     }, 1000)
 
 }
+
+autoUpdater.setFeedURL({
+    provider: 'github',
+    owner: 'NR-SkaterBoy',
+    repo: 'LinuxSystemUpdater2',
+    releaseType: 'release',
+    prerelease: false,
+    private: true,
+    token: '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'
+});
+
+
+app.on('ready', () => {
+    autoUpdater.checkForUpdatesAndNotify();
+});
+
+autoUpdater.on('update-downloaded', (info) => {
+    // TODO: Az új verzió letöltése befejeződött, itt jeleníthető meg az üzenet a felhasználónak
+    log("info", "The application has been updated")
+});
+
+autoUpdater.on('error', (err) => {
+    // TODO: Hiba történt a frissítési folyamat során, itt jeleníthető meg az üzenet a felhasználónak
+    log("error", "Error occured during the update!")
+});
 
 
 app.whenReady().then(() => {

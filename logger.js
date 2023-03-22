@@ -7,6 +7,9 @@ const path = require('path');
 const pathLocation = os.hostname() === "Ricsi" && os.platform() === "win32" ? "C:/Users/nrric/OneDrive/Documents/Programozás/LinuxSystemUpdater2/logs" : "/home/"
 
 const logFilePath = path.join(pathLocation, 'logs.log');
+const logFolder = "./logs"
+
+try {if (!fs.existsSync(logFolder)) fs.mkdirSync(logFolder)} catch (e) { console.log(e) }
 
 const loggerConfig = {
   format: combine(
@@ -29,7 +32,7 @@ const loggerInstance = createLogger(loggerConfig);
 
 /**
  * Function of the log types
- * @param {"error" | "warn" | "info" | "debug"} [level="info"] Type of log
+ * @param {"error" | "warn" | "info" | "debug"} [level="info"] Types of log
  * @param {string} message Log message
  */
 
