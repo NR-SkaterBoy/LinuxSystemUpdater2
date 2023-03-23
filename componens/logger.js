@@ -5,7 +5,7 @@ const os = require("os")
 const fs = require('fs');
 const path = require('path');
 
-const pathLocation = os.hostname() === "Ricsi" && os.platform() === "win32" ? "C:/Users/nrric/OneDrive/Documents/Programozás/LinuxSystemUpdater2/logs" : "/home/"
+const pathLocation = os.platform() === "win32" ? "C:/Users/nrric/OneDrive/Documents/Programozás/LinuxSystemUpdater2/logs" : `/home/${os.hostname()}/LinuxSystemUpdater/logs`
 
 const logFilePath = path.join(pathLocation, 'logs.log');
 const logFolder = "./logs"

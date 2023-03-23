@@ -1,15 +1,14 @@
 /* ======== Application Modules ======== */
-const { app, BrowserWindow, ipcMain } = require("electron")
-const { autoUpdater } = require("electron-updater");
+const { app, BrowserWindow, ipcMain, autoUpdater } = require("electron")
 
 /* ======== Import Modules ======== */
 const path = require("path")
 const os = require("os")
 
 /* ======== Custom Modules ======== */
-const log = require("./componens/modules/logger")
-const { createMenu } = require("./componens/menu")
-const { createNotification } = require("./componens/updatenotification")
+const log = require("./componens/logger")
+const { createMenu } = require("./componens/modules/menu")
+const { createNotification } = require("./componens/utils")
 
 
 function createWindow() {
@@ -32,9 +31,14 @@ function createWindow() {
     mainWindow.loadFile("./app/index.html")
 }
 
+app.setName("Linux System Updater")
+console.log(app.name)
+
+// TODO: Ha nincs internek kapcsolat, ne induljon el, és térjen vissza egy error üzenettel
 /* Starts application when it is ready */
 app.whenReady().then(() => {
     createWindow()
+
     log("info", "The application has been started!")
     app.on("activate", function () {
         if (BrowserWindow.getAllWindows().length === 0) createWindow()
@@ -49,31 +53,47 @@ app.on("window-all-closed", function () {
 
 /* Updater */
 autoUpdater.setFeedURL({
-    provider: "github",
-    owner: "NR-SkaterBoy",
-    repo: "LinuxSystemUpdater2",
-    releaseType: "release",
+    provider: 'github',
+    owner: 'NR-SkaterBoy',
+    repo: 'https://github.com/NR-SkaterBoy/LinuxSystemUpdater2',
+    releaseType: 'release',
     prerelease: false,
     private: true,
-    token: "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"
+    token: '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'
 });
 
-app.on("ready", () => {
+app.whenReady().then(() => {
     autoUpdater.checkForUpdatesAndNotify().then((result) => {
-        if (!result.updateInfo.version) return
-        autoUpdater.downloadUpdate();
+        if (result.updateInfo && result.updateInfo.version) {
+            autoUpdater.downloadUpdate();
+        }
+    }).catch((error) => {
+        if (error.code === 'ERR_UPDATER_INVALID_RELEASE_FEED') {
+            console.error(error);
+            createNotification({
+                title: 'Update error',
+                body: 'An error occurred during the update. Please try again later.',
+                icon: 'src/img/error.png',
+                sound: './src/sound/error.mp3',
+                silent: true
+            });
+        }
     });
 });
 
-autoUpdater.on("update-downloaded", (info) => {
-    log("info", "The application has been updated")
-    log("info", info)
-    createNotification("Successful update", "We have successfully updated the application!", "./src/img/succesfull.png", "./src/sound/succes.mp3")
-    autoUpdater.quitAndInstall();
+autoUpdater.on('update-downloaded', (info) => {
+    log("info", 'update-downloaded');
+    createNotification({
+        title: "Successful update",
+        body: "We have successfully updated the application!",
+        icon: "./src/img/succesfull.png",
+        sound: "./src/sound/succes.mp3",
+        silent: true
+    })
+    autoUpdater.quitAndInstall(true, true);
 });
 
 autoUpdater.on('error', (err) => {
-    log("error", "An error occurred during the update!")
-    log("error", err)
-    createNotification("Failed update", "An error occurred during the update!", "src/img/error.png", "./src/sound/error.mp3")
+    log("error", err);
+    console.log(err)
 });
