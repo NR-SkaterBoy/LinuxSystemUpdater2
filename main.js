@@ -1,5 +1,5 @@
 /* ======== Application Modules ======== */
-const { app, BrowserWindow, ipcMain, Menu } = require("electron")
+const { app, BrowserWindow, ipcMain } = require("electron")
 const { autoUpdater } = require("electron-updater");
 
 /* ======== Import Modules ======== */
@@ -7,9 +7,9 @@ const path = require("path")
 const os = require("os")
 
 /* ======== Custom Modules ======== */
-const log = require("./modules/logger")
+const log = require("./componens/modules/logger")
 const { createMenu } = require("./componens/menu")
-const {successedUpdate, failedUpdate} = require("./componens/updatenotification")
+const { createNotification } = require("./componens/updatenotification")
 
 
 function createWindow() {
@@ -59,15 +59,21 @@ autoUpdater.setFeedURL({
 });
 
 app.on("ready", () => {
-    autoUpdater.checkForUpdatesAndNotify();
+    autoUpdater.checkForUpdatesAndNotify().then((result) => {
+        if (!result.updateInfo.version) return
+        autoUpdater.downloadUpdate();
+    });
 });
 
 autoUpdater.on("update-downloaded", (info) => {
-    successedUpdate()
     log("info", "The application has been updated")
+    log("info", info)
+    createNotification("Successful update", "We have successfully updated the application!", "./src/img/succesfull.png", "./src/sound/succes.mp3")
+    autoUpdater.quitAndInstall();
 });
 
 autoUpdater.on('error', (err) => {
-    failedUpdate()
-    log("error", "Error occured during the update!")
+    log("error", "An error occurred during the update!")
+    log("error", err)
+    createNotification("Failed update", "An error occurred during the update!", "src/img/error.png", "./src/sound/error.mp3")
 });

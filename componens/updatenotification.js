@@ -1,25 +1,28 @@
 /* ======== Application Modules ======== */
-const { Notification } = require("electron")
+const Notifications = require("electron-notifications")
+const { Notification } = require('electron')
 
-// Succesfulled update
-const succesUppdate = new Notification({
-    title: "SIkeres frissítés",
-    body: "Üzenet szövege",
-    icon: "/path/to/icon.png"
-})
+/**
+ * 
+ * @param {string} title Title of the notification
+ * @param {string} description Description of the notification
+ * @param {string} image Path to image
+ * @param {string} sound Sound of notification
+ */
+function createNotification(title, description, image, sound) {
+  const notification = new Notification({
+    title: title,
+    body: description,
+    backgroundColor: '#000000',
+    color: '#FFFFFF',
+    icon: image || "../app*/img/lsu_icon.ico",
+    borderRadius: 50,
+    sound: sound,
+  })
 
-const successedUpdate = () => {
-    succesUppdate.show()
+  notification.show()
 }
 
-const failed = new Notification({
-    title: "Sikertelen frissítés",
-    body: "Üzenet szövege",
-    icon: "/path/to/icon.png"
-})
-
-const failedUpdate = () => {
-    failed.show()
+module.exports = {
+  createNotification
 }
-
-module.exports = { successedUpdate, failedUpdate }

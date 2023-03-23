@@ -1,40 +1,64 @@
 {
-  "name": "linux-system-updater",
-  "version": "0.0.1",
-  "description": "Updater for linux systems",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "build": "electron-builder"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/NR-SkaterBoy/LinuxSystemUpdater2.git"
-  },
-  "keywords": [
-    "linux",
-    "debian",
-    "update",
-    "system",
-    "system updater"
-  ],
-  "author": "GitHub",
-  "license": "MIT",
-  "devDependencies": {
-    "electron": "^23.1.4",
-    "electron-builder": "^23.6.0",
-    "electron-updater": "^5.3.0"
-  },
-  "dependencies": {
-    "bootstrap": "^5.3.0-alpha1",
-    "bootstrap-icons": "^1.10.3",
-    "electron-menu": "^1.0.0",
-    "logger": "^0.0.1",
-    "update-electron-app": "^2.0.1",
-    "winston": "^3.8.2"
-  },
-  "bugs": {
-    "url": "https://github.com/NR-SkaterBoy/LinuxSystemUpdater2/issues"
-  },
-  "homepage": "https://github.com/NR-SkaterBoy/LinuxSystemUpdater2#readme"
+    "name": "linux-system-updater",
+    "version": "0.0.2",
+    "description": "Updater for linux systems",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron .",
+        "build": "electron-builder"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/NR-SkaterBoy/LinuxSystemUpdater2.git"
+    },
+    "keywords": [
+        "linux",
+        "debian",
+        "update",
+        "system",
+        "system updater"
+    ],
+    "author": "GitHub",
+    "license": "MIT",
+    "devDependencies": {
+        "electron": "^23.1.4",
+        "electron-builder": "^23.6.0",
+        "electron-updater": "^5.3.0"
+    },
+    "dependencies": {
+        "bootstrap": "^5.3.0-alpha1",
+        "bootstrap-icons": "^1.10.3",
+        "electron-menu": "^1.0.0",
+        "electron-notifications": "^1.0.0",
+        "logger": "^0.0.1",
+        "update-electron-app": "^2.0.1",
+        "winston": "^3.8.2",
+        "electron-updater": "^5.3.0"
+    },
+    "bugs": {
+        "url": "https://github.com/NR-SkaterBoy/LinuxSystemUpdater2/issues"
+    },
+    "homepage": "https://github.com/NR-SkaterBoy/LinuxSystemUpdater2#readme",
+    "build": {
+        "appId": "com.linuxsystemupdater.nrskaterboy",
+        "productName": "LinuxSystemUpdater",
+        "icon": "./src/icon.ico",
+        "extraFiles": [
+            "src/**"
+        ],
+        "directories": {
+            "output": "dist"
+        },
+        "linux": {
+            "target": "deb"
+        },
+        "win": {
+            "target": "nsis"
+        },
+        "publish": [
+            {
+                "provider": "github"
+            }
+        ]
+    }
 }
