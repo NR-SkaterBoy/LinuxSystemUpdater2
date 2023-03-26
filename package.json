@@ -1,11 +1,12 @@
 {
     "name": "linux-system-updater",
-    "version": "0.0.2",
+    "version": "1.0.0",
     "description": "Updater for linux systems",
     "main": "main.js",
     "scripts": {
         "start": "electron .",
-        "build": "electron-builder"
+        "build": "electron-builder",
+        "reload": "nodemon main.js"
     },
     "repository": {
         "type": "git",
@@ -23,17 +24,21 @@
     "devDependencies": {
         "electron": "^23.1.4",
         "electron-builder": "^23.6.0",
-        "electron-updater": "^5.3.0"
+        "electron-reload": "^2.0.0-alpha.1",
+        "electron-updater": "^5.3.0",
+        "nodemon": "^2.0.22"
     },
     "dependencies": {
         "bootstrap": "^5.3.0-alpha1",
         "bootstrap-icons": "^1.10.3",
+        "dns": "^0.2.2",
         "electron-menu": "^1.0.0",
         "electron-notifications": "^1.0.0",
+        "electron-updater": "^5.3.0",
+        "internet-available": "^1.0.0",
         "logger": "^0.0.1",
         "update-electron-app": "^2.0.1",
-        "winston": "^3.8.2",
-        "electron-updater": "^5.3.0"
+        "winston": "^3.8.2"
     },
     "bugs": {
         "url": "https://github.com/NR-SkaterBoy/LinuxSystemUpdater2/issues"
@@ -41,7 +46,7 @@
     "homepage": "https://github.com/NR-SkaterBoy/LinuxSystemUpdater2#readme",
     "build": {
         "appId": "com.linuxsystemupdater.nrskaterboy",
-        "productName": "LinuxSystemUpdater",
+        "productName": "Linux System Updater",
         "icon": "./src/icon.ico",
         "extraFiles": [
             "src/**"

@@ -1,16 +1,13 @@
-.nezet {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
+@import url("https://fonts.googleapis.com/css2?family=Francois+One&display=swap");
 .stati {
-  background-color: #535353;
   height: 6em;
   padding: 1em;
   margin: 1em 0;
-  border-radius: 10px;
-  border: 1px solid rgb(128, 128, 215);
+  font-family: "Francois One", sans-serif;
+  color: #fff;
+  background-color: #44236F !important;
+  position: relative;
+  transition: transform 0.2s;
 }
 .stati i {
   font-size: 3.5em;
@@ -18,8 +15,9 @@
 .stati div {
   width: calc(100% - 3.5em);
   display: block;
-  float: right;
-  text-align: right;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 .stati div b {
   font-size: 2.2em;
@@ -32,12 +30,13 @@
 .stati div span {
   font-size: 1em;
   width: 100%;
-  color: #fff !important;
+  color: #fff;
   display: block;
 }
-.stati.left div {
-  float: left;
-  text-align: left;
+.stati:hover {
+  transform: scale(1.05);
+  z-index: 1;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 }
 
 .staticon:before {
@@ -48,6 +47,36 @@
   -webkit-text-fill-color: transparent;
 }
 
+.usagepercent {
+  font-family: "Francois One", sans-serif;
+  font-size: 60px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* font-family: 'Francois One', sans-serif; */
 body {
-  background-color: rgb(48, 48, 48);
+  background-color: #2a1347;
+  width: 100% !important;
+}
+
+.btn, .btn:hover {
+  width: 550px;
+  height: 82px;
+  border-radius: 37px;
+  color: #fff;
+  background-color: #8C439E;
+  border: none;
+  font-size: 42px;
+  margin-right: -30px;
+}
+
+.card {
+  background-color: #8C439E;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  height: 450px;
+  width: 350px;
+  margin-left: 120px;
 }/*# sourceMappingURL=style.css.map */

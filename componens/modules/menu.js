@@ -6,10 +6,11 @@ const template = [
         label: 'Menu',
         submenu: [
             {
-                label: 'New',
+                label: 'Restart',
                 accelerator: 'CmdOrCtrl+N',
                 click: () => {
-                    console.log('New File')
+                    app.relaunch()
+                    app.quit()
                 }
             },
             {
