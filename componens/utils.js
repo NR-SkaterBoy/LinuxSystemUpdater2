@@ -1,4 +1,4 @@
-const { Notification } = require('electron')
+const { Notification, dialog } = require('electron')
 
 /**
  * Creates a notification

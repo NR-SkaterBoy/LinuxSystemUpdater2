@@ -1,12 +1,12 @@
 {
     "name": "linux-system-updater",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "description": "Updater for linux systems",
     "main": "main.js",
     "scripts": {
         "start": "electron .",
         "build": "electron-builder",
-        "reload": "nodemon main.js"
+        "watch": "nodemon --exec electron ."
     },
     "repository": {
         "type": "git",

@@ -1,31 +1,25 @@
 /* ======== Application Modules ======== */
 const { app, BrowserWindow, ipcMain, ipcRenderer, dialog } = require("electron")
 const { autoUpdater, AppUpdater } = require('electron-updater');
-const reload = require('electron-reload');
 
 /* ======== Import Modules ======== */
 const path = require("path")
 const os = require("os")
+const dns = require("dns");
+const { spawn } = require("child_process");
 
 /* ======== Custom Modules ======== */
 const log = require("./componens/logger")
 const { createMenu } = require("./componens/modules/menu")
 const { createNotification } = require("./componens/utils")
-const isOnline = require("./componens/modules/functions");
-const { on } = require("events");
-const dns = require("dns");
+const { ipcRender } = require("./componens/modules/functions");
 
 
-if (process.env.NODE_ENV === 'development') {
-    reload(__dirname, {
-        electron: path.join(__dirname)
-    });
-}
+
 
 function createWindow() {
 
-    // createMenu()
-
+    menu = os.platform() == "win32" ? "" : createMenu()
     const mainWindow = new BrowserWindow({
         width: 1418,
         height: 933,
@@ -44,25 +38,28 @@ function createWindow() {
     // Loads the main file
     mainWindow.loadFile("./app/index.html")
 
-    ipcMain.on('request-usage', (event) => {
-        const cpuUsage = Math.round((1 - os.loadavg()[2] / os.cpus().length) * 100);
-        const ramUsage = Math.round((1 - os.freemem() / os.totalmem()) * 100);
-        const romUsage = Math.round((1 - os.freemem() / os.totalmem()) * 100);
-
-        event.reply('usage-response', { cpuUsage, ramUsage, romUsage });
-    });
+    ipcRender()
 }
 
 app.setName("Linux System Updater")
-console.log(app.name)
 
-// TODO: Ha nincs internek kapcsolat, ne induljon el, és térjen vissza egy error üzenettel
 /* Starts application when it is ready */
 app.whenReady().then(() => {
 
     dns.resolve('www.google.com', function (err) {
         if (err) {
-            console.log("sd")
+            console.log("No available intrernet connection")
+            log("error", "No available intrernet connection")
+            dialog.showMessageBox({
+                type: 'info',
+                title: 'Error occured!',
+                message: 'Check your network connection!',
+                buttons: ['Try Again', 'Quit']
+            }).then(result => {
+                if (result.response === 0) {
+                    app.relaunch()
+                } else app.quit()
+            });
         } else {
             console.log("Connected");
 
@@ -74,8 +71,6 @@ app.whenReady().then(() => {
             })
 
             autoUpdater.checkForUpdates()
-
-
         }
     });
 
@@ -93,7 +88,7 @@ autoUpdater.setFeedURL({
     owner: 'NR-SkaterBoy',
     repo: 'LinuxSystemUpdater-releases',
     releaseType: 'release',
-    prerelease: true,
+    prerelease: false,
     private: false,
     token: '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',
     url: 'https://api.github.com/repos/NR-SkaterBoy/LinuxSystemUpdater-releases/releases',
@@ -138,7 +133,6 @@ function showUpdateDownloaded() {
     });
 }
 
-// Az eseménykezelők, amelyek meghívják a megfelelő funkciókat
 autoUpdater.on('update-available', (info) => {
     console.log('Update available');
     showUpdateAvailable(info.version);
