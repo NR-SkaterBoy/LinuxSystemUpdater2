@@ -2,85 +2,85 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="Content-Security-Policy"
-		content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<link rel="stylesheet" href="../node_modules\bootstrap\dist\css\bootstrap.min.css">
-	<link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
-	<link href="./sass/style.css" rel="stylesheet">
-	<link rel="shortcut icon" href="./img/lsu_icon.ico" type="image/x-icon">
-	<title>Linux System Updater</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="../node_modules\bootstrap\dist\css\bootstrap.min.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link href="./css/style.min.css.map" rel="stylesheet">
+    <link rel="shortcut icon" href="./img/lsu_icon.ico" type="image/x-icon">
+    <title>Linux System Updater</title>
 </head>
 
 <body>
-	<section>
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-4 col-lg-3">
-					<div class="stati bg-primary rounded-3 d-flex align-items-center justify-content-start">
-						<i class="bi bi-cpu text-light me-3"></i>
-						<b class="text-light" id="cpu-usage"></b>
-						<div class="text-end text-light">
-							<span>CPU<br>usage</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 col-lg-3">
-					<div class="stati bg-primary rounded-3 d-flex align-items-center justify-content-start">
-						<i class="bi bi-memory text-light me-3"></i>
-						<b class="text-light" id="ram-usage"></b>
-						<div class="text-end text-light">
-							<span>RAM<br>usage</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 col-lg-3">
-					<div class="stati bg-primary rounded-3 d-flex align-items-center justify-content-start">
-						<i class="bi bi-disc-fill text-light me-3"></i>
-						<b class="ext-light" id="rom-usage"></b>
-						<div class="text-end text-light">
-							<span>ROM<br>usage</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<section class="container" style="margin-top:32px;">
-		<div class="row">
-			<!-- Egyik rész -->
-			<div class="col-md-6 text-end">
-				<img src="./img/lsu.png" alt="placeholder" class="lsu">
-				<button class="btn btn-primary mt-3">Update</button>
-			</div>
+    <section>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-4 col-lg-3">
+                    <div class="stati bg-primary rounded-3 d-flex align-items-center justify-content-start">
+                        <i class="bi bi-cpu text-light me-3"></i>
+                        <b class="text-light" id="cpu-usage"></b>
+                        <div class="text-end text-light">
+                            <span>CPU<br>usage</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <div class="stati bg-primary rounded-3 d-flex align-items-center justify-content-start">
+                        <i class="bi bi-memory text-light me-3"></i>
+                        <b class="text-light" id="ram-usage"></b>
+                        <div class="text-end text-light">
+                            <span>RAM<br>usage</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <div class="stati bg-primary rounded-3 d-flex align-items-center justify-content-start">
+                        <i class="bi bi-disc-fill text-light me-3"></i>
+                        <b class="ext-light" id="rom-usage"></b>
+                        <div class="text-end text-light">
+                            <span>ROM<br>usage</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="container" style="margin-top:32px;">
+        <div class="row">
+            <!-- Egyik rész -->
+            <div class="col-md-6 text-end">
+                <img src="./img/lsu.png" alt="placeholder" class="lsu">
+                <button class="btn btn-primary mt-3">Update</button>
+            </div>
 
-			<!-- Másik rész -->
-			<div class="col-md-6 d-flex align-items-center">
-				<div class="card">
-					<div class="h-100 card-body">
-						<div>
-							<h3>Processor Name:</h3>
-							<p id="cpu-name"></p>
-						</div>
-						<div>
-							<h3>Node Version:</h3>
-							<p id="node-version"></p>
-						</div>
-						<div>
-							<h3>Last Update</h3>
-							<p id="update-update"></p>
-						</div>
-						<div>
-							<h3>Uptime:</h3>
-							<p id="uptime"></p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<script src="../renderer.js"></script>
+            <!-- Másik rész -->
+            <div class="col-md-6 d-flex align-items-center">
+                <div class="card">
+                    <div class="h-100 card-body">
+                        <div>
+                            <h3>Processor Name:</h3>
+                            <p id="cpu-name"></p>
+                        </div>
+                        <div>
+                            <h3>Node Version:</h3>
+                            <p id="node-version"></p>
+                        </div>
+                        <div>
+                            <h3>Last Update</h3>
+                            <p id="update-update"></p>
+                        </div>
+                        <div>
+                            <h3>Uptime:</h3>
+                            <p id="uptime"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="../renderer.js"></script>
 </body>
 
 </html>

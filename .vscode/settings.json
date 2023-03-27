@@ -1,0 +1,13 @@
+{
+	"liveSassCompile.settings.formats": [
+		{
+			"format": "compressed",
+			"extensionName": ".min.css",
+			"savePath": "/app/css"
+		}
+	],
+	"editor.tabSize": 4,
+	"editor.insertSpaces": true,
+	"editor.detectIndentation": false,
+	"compile-hero.disable-compile-files-on-did-save-code": true
+}
