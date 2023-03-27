@@ -1,3 +1,4 @@
+/* ======== Import Modules ======== */
 const { Notification, dialog } = require('electron')
 
 /**

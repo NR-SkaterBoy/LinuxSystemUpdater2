@@ -1,3 +1,4 @@
+/* Import ipcRenderer */
 const { ipcRenderer } = require("electron");
 
 setInterval(() => {

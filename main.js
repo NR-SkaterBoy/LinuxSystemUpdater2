@@ -1,12 +1,11 @@
 /* ======== Application Modules ======== */
-const { app, BrowserWindow, ipcMain, ipcRenderer, dialog } = require("electron")
+const { app, BrowserWindow, dialog } = require("electron")
 const { autoUpdater, AppUpdater } = require('electron-updater');
 
 /* ======== Import Modules ======== */
 const path = require("path")
 const os = require("os")
 const dns = require("dns");
-const { spawn } = require("child_process");
 
 /* ======== Custom Modules ======== */
 const log = require("./componens/logger")
@@ -14,12 +13,11 @@ const { createMenu } = require("./componens/modules/menu")
 const { createNotification } = require("./componens/utils")
 const { ipcRender } = require("./componens/modules/functions");
 
-
-
-
+/**
+ * It creates the main window with menu
+ */
 function createWindow() {
-
-    menu = os.platform() == "win32" ? "" : createMenu()
+    const menu = os.platform() == "win32" ? "" : createMenu() // Define menu
     const mainWindow = new BrowserWindow({
         width: 1418,
         height: 933,
@@ -33,23 +31,18 @@ function createWindow() {
         },
         icon: "./app/img/lsu_icon.ico",
     })
-
-    // mainWindow.setFullScreen(true)
-    // Loads the main file
-    mainWindow.loadFile("./app/index.html")
-
-    ipcRender()
+    mainWindow.loadFile("./app/index.html") // Loads index file
+    ipcRender() // Load IPC function
 }
 
 app.setName("Linux System Updater")
 
 /* Starts application when it is ready */
 app.whenReady().then(() => {
-
     dns.resolve('www.google.com', function (err) {
         if (err) {
             console.log("No available intrernet connection")
-            log("error", "No available intrernet connection")
+            log("error",  `No available intrernet connection\t${err}`)
             dialog.showMessageBox({
                 type: 'info',
                 title: 'Error occured!',
@@ -62,18 +55,14 @@ app.whenReady().then(() => {
             });
         } else {
             console.log("Connected");
-
             createWindow()
-
             log("info", "The application has been started!")
             app.on("activate", function () {
                 if (BrowserWindow.getAllWindows().length === 0) createWindow()
             })
-
             autoUpdater.checkForUpdates()
         }
     });
-
 })
 
 /* Closed application  */
@@ -96,7 +85,6 @@ autoUpdater.setFeedURL({
 
 autoUpdater.autoDownload = true
 autoUpdater.autoInstallOnAppQuit = true
-
 
 function showUpdateAvailable(version) {
     dialog.showMessageBox({

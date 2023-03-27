@@ -1,5 +1,8 @@
+/* ======== Import Modules ======== */
 const { ipcMain, ipcRenderer } = require("electron")
 const os = require("os")
+const { spawn } = require("child_process");
+
 /**
  * IPC
  */

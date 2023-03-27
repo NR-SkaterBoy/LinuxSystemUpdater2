@@ -1,3 +1,4 @@
+/* ======== Import Modules ======== */
 import { Notification } from 'electron'
 
 /**
