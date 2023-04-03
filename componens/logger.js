@@ -8,7 +8,7 @@ const path = require("path")
 const pathLocation = "./logs"
 
 const logFilePath = path.join(pathLocation, "logs.log");
-const logFolder = "logs/logs"
+const logFolder = "logs/"
 
 try { if (!fs.existsSync(logFolder)) fs.mkdirSync(logFolder) } catch (e) { console.log(e) }
 
@@ -38,10 +38,10 @@ const loggerInstance = createLogger(loggerConfig)
  */
 
 function log(level = "info", message) {
-    if (level === "error") loggerInstance.error(message)
-    else if (level === "warn") loggerInstance.warn(message)
-    else if (level === "debug") loggerInstance.debug(message)
-    else loggerInstance.info(message)
+    if (level === "error") loggerInstance.error(message.toString())
+    else if (level === "warn") loggerInstance.warn(message.toString())
+    else if (level === "debug") loggerInstance.debug(message.toString())
+    else loggerInstance.info(message.toString())
 }
 
 module.exports = log;

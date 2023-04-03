@@ -25,7 +25,7 @@ export const createNotification = (data: {
         title: data.title || '',
         subtitle: data.subtitle || '',
         body: data.body || '',
-        silent: data.silent || false,
+        silent: data.silent || true,
         icon: data.icon || '',
         hasReply: data.hasReply || false,
         timeoutType: data.timeoutType || '',

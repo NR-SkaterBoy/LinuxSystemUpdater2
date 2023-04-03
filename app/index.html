@@ -20,7 +20,7 @@
                 <div class="col-md-4 col-lg-3">
                     <div class="stati bg-primary rounded-3 d-flex align-items-center justify-content-start">
                         <i class="bi bi-cpu text-light me-3"></i>
-                        <b class="text-light" id="cpu-usage"></b>
+                        <b class="text-light data-size" id="cpu-usage"></b>
                         <div class="text-end text-light">
                             <span>CPU<br>usage</span>
                         </div>
@@ -29,7 +29,7 @@
                 <div class="col-md-4 col-lg-3">
                     <div class="stati bg-primary rounded-3 d-flex align-items-center justify-content-start">
                         <i class="bi bi-memory text-light me-3"></i>
-                        <b class="text-light" id="ram-usage"></b>
+                        <b class="text-light data-size" id="ram-usage"></b>
                         <div class="text-end text-light">
                             <span>RAM<br>usage</span>
                         </div>
@@ -38,7 +38,7 @@
                 <div class="col-md-4 col-lg-3">
                     <div class="stati bg-primary rounded-3 d-flex align-items-center justify-content-start">
                         <i class="bi bi-disc-fill text-light me-3"></i>
-                        <b class="ext-light" id="rom-usage"></b>
+                        <b class="ext-light data-size" id="rom-usage"></b>
                         <div class="text-end text-light">
                             <span>ROM<br>usage</span>
                         </div>
@@ -49,30 +49,32 @@
     </section>
     <section class="container" style="margin-top:32px;">
         <div class="row">
-            <!-- Egyik rész -->
-            <div class="col-md-6 text-end">
+            <div class="col-md-6 text-end align-items-center">
                 <img src="./img/lsu.png" alt="placeholder" class="lsu">
-                <button class="btn btn-primary mt-3">Update</button>
+                    <a id="update-btn" class="btn btn-block btn-primary">Update</a>
             </div>
 
-            <!-- Másik rész -->
             <div class="col-md-6 d-flex align-items-center">
-                <div class="card">
+                <div class="card"> 
                     <div class="h-100 card-body">
                         <div>
-                            <h3>Processor Name:</h3>
+                            <h6>Processor Name:</h6>
                             <p id="cpu-name"></p>
                         </div>
                         <div>
-                            <h3>Node Version:</h3>
-                            <p id="node-version"></p>
+                            <h6>Arhitecture:</h6>
+                            <p id="arhitecture"></p>
                         </div>
                         <div>
-                            <h3>Last Update</h3>
+                            <h6>Hostname:</h6>
+                            <p id="hostname"></p>
+                        </div>
+                        <div>
+                            <h6>Last Update</h6>
                             <p id="update-update"></p>
                         </div>
                         <div>
-                            <h3>Uptime:</h3>
+                            <h6>Uptime:</h6>
                             <p id="uptime"></p>
                         </div>
                     </div>

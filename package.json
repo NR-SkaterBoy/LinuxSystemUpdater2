@@ -1,6 +1,6 @@
 {
     "name": "linux-system-updater",
-    "version": "2.0.0",
+    "version": "1.0.0",
     "description": "Updater for linux systems",
     "main": "main.js",
     "scripts": {
@@ -55,7 +55,7 @@
             "output": "dist"
         },
         "linux": {
-            "target": "deb"
+            "target": ["deb", "snap"]
         },
         "win": {
             "target": "nsis"

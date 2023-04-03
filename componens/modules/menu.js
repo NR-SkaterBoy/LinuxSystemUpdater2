@@ -1,5 +1,6 @@
 /* ======== Application Modules ======== */
 const { app, Menu, shell } = require('electron')
+const log = require('../logger')
 
 const template = [
     {
@@ -74,8 +75,13 @@ const template = [
 ]
 
 const createMenu = () => {
-    const menu = Menu.buildFromTemplate(template)
-    Menu.setApplicationMenu(menu)
+    try {
+        const menu = Menu.buildFromTemplate(template)
+        Menu.setApplicationMenu(menu)
+    } catch (e) {
+        console.log(e)
+        log("error", e)
+    }
 }
 
 module.exports = { createMenu }
