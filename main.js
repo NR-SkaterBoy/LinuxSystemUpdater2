@@ -12,21 +12,18 @@ const log = require("./componens/logger")
 const { createMenu } = require("./componens/modules/menu")
 const { createNotification } = require("./componens/utils")
 const { ipcRender } = require("./componens/modules/functions");
-const { spawn } = require("child_process");
-
-const dev = os.platform() == "win32" ? true : false
-if (dev) console.log("Developer mode is active!")
+const { exec } = require("child_process");
 
 /**
  * It creates the main window with menu
  */
 function createWindow() {
-    // createMenu() // Create custom menu
+    createMenu() // Creates custom menu
     ipcRender() // Load IPC function
     try {
         const mainWindow = new BrowserWindow({
             width: 1418,
-            height: 933,
+            height: 733,
             resizable: false,
             webPreferences: {
                 nodeIntegration: true,
@@ -35,7 +32,7 @@ function createWindow() {
                 devTools: true,
                 preload: path.join(__dirname, "preload.js")
             },
-            icon: "./app/img/lsu_icon.ico",
+            icon: "src/icon.png",
         })
         mainWindow.loadFile("./app/index.html") // Loads index file
     } catch (e) {
@@ -48,9 +45,10 @@ app.setName("Linux System Updater")
 
 /* Starts application when it is ready */
 app.whenReady().then(() => {
+    autoUpdater.checkForUpdates()
     try {
         dns.resolve("www.google.com", function (err) {
-            if (err && !dev) {
+            if (err) {
                 log("error", `No available intrernet connection\t${err}`)
                 /**
                  * TODO: Write better UI box
@@ -81,10 +79,21 @@ app.whenReady().then(() => {
             } else {
                 createWindow()
                 log("info", `The application has been started! Verison: ${app.getVersion()}`)
+                autoUpdater.checkForUpdates().then((res) => {
+                    if (res && res.updateInfo) {
+                        console.log(res.updateInfo);
+                        log("info", res.updateInfo)
+                    } else {
+                        console.log("No update info available.");
+                        log("info", "No update info available.")
+                    }
+                });
                 app.on("activate", function () {
-                    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+                    if (BrowserWindow.getAllWindows().length === 0) {
+                        createWindow()
+                        autoUpdater.checkForUpdates()
+                    }
                 })
-                autoUpdater.checkForUpdates()
             }
         })
     } catch (e) {
@@ -101,17 +110,18 @@ app.on("window-all-closed", function () {
 
 /* Updater */
 autoUpdater.setFeedURL({
-    provider: "github",
-    owner: "NR-SkaterBoy",
-    repo: "LinuxSystemUpdater-releases",
-    releaseType: "release",
-    prerelease: false,
+    provider: 'github',
+    owner: 'NR-SkaterBoy',
+    repo: 'LinuxSystemUpdater-releases',
+    releaseType: 'release',
+    prerelease: true,
     private: false,
-    token: "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",
-    url: "https://api.github.com/repos/NR-SkaterBoy/LinuxSystemUpdater-releases/releases",
+    token: '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',
+    url: 'https://api.github.com/repos/NR-SkaterBoy/LinuxSystemUpdater-releases/releases',
 });
 
-autoUpdater.autoDownload = true
+
+autoUpdater.autoDownload = false
 autoUpdater.autoInstallOnAppQuit = true
 
 function showUpdateAvailable(version) {
@@ -184,10 +194,28 @@ autoUpdater.on("error", () => {
 })
 
 ipcMain.on("update", (event) => {
-    try {   
-        spawn("sh ./bash/systemUpdater.sh")
+    try {
+        exec(`. /etc/os-release
+        echo "" | tee -a $HOME/lsuLog/update.log
+        echo "" | tee -a $HOME/lsuLog/update.log
+        echo "" | tee -a $HOME/lsuLog/update.log
+        echo $(date +" %A, %d of %B") | tee -a $HOME/lsuLog/update.log
+        case "$ID_LIKE" in
+            "debian")
+                x-terminal-emulator -e bash -c "
+                    echo -e '\\033[32mRunning apt update...\\033[0m'; sudo apt update | tee -a $HOME/lsuLog/update.log;
+                    echo -e '\\033[32mRunning apt upgrade...\\033[0m'; sudo apt upgrade -y | tee -a $HOME/lsuLog/update.log;
+                    echo -e '\\033[32mRunning apt autoremove...\\033[0m'; sudo apt autoremove -y | tee -a $HOME/lsuLog/update.log;
+                    echo -e '\\033[32mRunning apt fix-broken install...\\033[0m'; sudo apt --fix-broken install | tee -a $HOME/lsuLog/update.log;
+                    read -p $'\\033[36mPress [ENTER] key to exit.\\033[0m'
+                "
+                ;;
+            *)
+                echo "\\033[31mError: Update failed! Unsupported system!\\033[0m"
+                ;;
+        esac`)
     } catch (e) {
-        log("error", e)
-        console.log(e)
+        log("error", `Error${e}`)
+        console.log("Error",e)
     }
 })

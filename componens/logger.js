@@ -5,12 +5,16 @@ const os = require("os")
 const fs = require("fs")
 const path = require("path")
 
-const pathLocation = "./logs"
-
+const pathLocation = `${os.homedir()}/lsuLog`;
 const logFilePath = path.join(pathLocation, "logs.log");
-const logFolder = "logs/"
 
-try { if (!fs.existsSync(logFolder)) fs.mkdirSync(logFolder) } catch (e) { console.log(e) }
+try {
+    if (!fs.existsSync(pathLocation)) {
+        fs.mkdirSync(pathLocation);
+    }
+} catch (e) {
+    console.log(e);
+}
 
 const loggerConfig = {
     format: combine(

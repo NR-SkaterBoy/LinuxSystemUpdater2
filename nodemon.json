@@ -1,0 +1,4 @@
+{
+    "watch": ["app", "componens", "main.js", "preload.js", "renderer.js", "src"],
+    "ext": "js, json, html, css"
+} 
