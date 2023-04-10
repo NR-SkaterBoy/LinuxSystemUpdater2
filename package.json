@@ -32,7 +32,7 @@
         "nodemon": "^2.0.22"
     },
     "dependencies": {
-        "bootstrap": "^5.3.0-alpha1",
+        "bootstrap": "^5.3.0-alpha3",
         "bootstrap-icons": "^1.10.3",
         "dns": "^0.2.2",
         "electron-menu": "^1.0.0",
